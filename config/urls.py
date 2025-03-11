@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.http import Http404
 from django.shortcuts import render
-from django.urls import path
+from django.urls import path, include
 from fake_db import user_db
 from todo.views import todo_list, todo_info
+from users import views as users_views
 
 _db = user_db
 
@@ -28,4 +29,8 @@ urlpatterns = [
 
     path('todo/', todo_list, name='todo_list'),
     path('todo/<int:todo_id>/', todo_info, name='todo_info'),
+
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/login/', users_views.login, name='login'),
+    path('accounts/signup/', users_views.sign_up, name='signup')
 ]
